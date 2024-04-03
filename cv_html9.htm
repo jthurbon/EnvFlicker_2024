@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computerised Flicker</title>
+<style>
+  /* CSS for fullscreen mode */
+  #fullscreen-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 9999;
+  }
+
+  /* CSS for images */
+  .corner-image {
+    position: absolute;
+  }
+
+  .corner-image.left {
+    left: -20px;
+    width: 300px; /* Adjust width as needed */
+    top: 0px;
+  }
+
+  .corner-image.right {
+    right: 10px;
+    width: 200px; /* Adjust width as needed */
+    top: 20px;
+  }
+
+/* CSS for spacing */
+  h1, p {
+    margin-top: 100px; /* Adjust the margin as needed */
+    margin-bottom: 20px; /* Adjust the margin as needed */
+  }
+
+/* CSS for button */
+  #play-fullscreen-button {
+    padding: 15px 30px; /* Adjust padding to increase button size */
+    font-size: 20px; /* Adjust font size */
+  }
+</style>
+</head>
+<body>
+
+<h1><center>Computerised Flicker</h1>
+<h2><center>10 minutes</h2>
+<h3><center>Please do not view if you have photosensitive epilepsy</h3>
+
+<center><p>
+  You are about to experience 10 minutes of flicker light.<br>
+  <br>First, let's set the audio volume. Put on headphones and play the audio using the button below. Use your computer settings to set the loudest volume you could comfortably listen to for 10 minutes.
+</p>
+
+<br><video style="display:none;width:0%;height:0%;" id="voladj_vid">
+<source src="https://github.com/jthurbon/online-lab-flicker/raw/main/voladj2.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+<br><button id="voladj_play" onclick="vidplay()">Play/pause audio</button>
+
+<script>
+var video = document.getElementById("voladj_vid");
+
+function vidplay() {
+
+       var button = document.getElementById("play");
+       if (video.paused) {
+          video.play();
+          button.textContent = "||";
+       } else {
+          video.pause();
+          button.textContent = ">";
+       }
+    }
+</script>
+
+<p>
+  <br><b>Please keep your eyes closed during all flicker light today.</b>
+  <br><br>If at any time you feel uncomfortable or want the flicker to stop, you can turn it off by (SPECIFY).
+  <br><br>When you are ready, press the button below and close your eyes to view the flicker.
+  <br><br>The password to advance the Qualtrics questionnaire will be shown at the end.
+</p>
+
+<!-- Add images -->
+<img src="https://github.com/jthurbon/online-lab-flicker/blob/main/ASLab_logo_h300.png?raw=true" class="corner-image left" alt="Left Image">
+<img src="https://github.com/jthurbon/online-lab-flicker/blob/main/mq_logo_h300.png?raw=true" class="corner-image right" alt="Right Image">
+
+<video style="display:none;width:0%;height:0%;"id="my-video" controls>
+  <source src="https://github.com/jthurbon/online-lab-flicker/raw/main/flicker_r30_wn.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<br><center><button id="play-fullscreen-button" onclick="playFullscreen()">Show Flicker</button>
+
+<script>
+function playFullscreen() {
+  var video = document.getElementById('my-video');
+  if (video.requestFullscreen) {
+    video.requestFullscreen().then(() => video.play()); // Play after fullscreen
+  } else if (video.mozRequestFullScreen) { /* Firefox */
+    video.mozRequestFullScreen().then(() => video.play());
+  } else if (video.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+    video.webkitRequestFullscreen().then(() => video.play());
+  } else if (video.msRequestFullscreen) { /* IE/Edge */
+    video.msRequestFullscreen().then(() => video.play());
+  }
+  
+  // Show the video element
+  video.style.display = "block";
+}
+</script>
+
+</body>
+</html>
